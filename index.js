@@ -1,26 +1,28 @@
-const express = require('express');
-const app = express();
+import express from 'express';
+import dotenv from 'dotenv';
+import todoRoutes from './routes/todos.js'; // Fix import for routes
+import connectDB from './config/Database.js'; // Fix import for database connection
 
-// Load config from env file
-require('dotenv').config();
+dotenv.config();
+
+const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Middleware to parse JSON request body
 app.use(express.json());
 
 // Mount todo API routes
-app.use('/api/v1', require('./routes/todos.js'));
+app.use("/api/v1", todoRoutes); // Use the imported routes
+
+// Connect to the database
+connectDB();
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`); 
+    console.log(`Server is running on port ${PORT}`);
 });
-
-// Connect to the database
-const connectDB = require('./config/Database.js');
-connectDB();
 
 // Root route
 app.get("/", (req, res) => {
-    res.send(`API is running on port ${PORT}`); // Fixed string interpolation
+    res.send(`This is homepage`);
 });

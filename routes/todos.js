@@ -1,7 +1,7 @@
-const express = require('express');
-const Router = express.Router();
-const { createTodo } = require('../Controllers/createTodo');
+import express  from 'express';
+import  createTodo from '../Controllers/createTodo.js'; 
+const router = express.Router();   
 
-Router.post('/createTodo', createTodo);
+router.post('/createTodo', createTodo); //Defines a POST route at /createTodo 
 
-module.exports = Router;
+export default router;
